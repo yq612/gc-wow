@@ -1,6 +1,6 @@
 {
   "name": "gc-wow",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "官网脚手架工具",
   "main": "index.js",
   "bin": {
