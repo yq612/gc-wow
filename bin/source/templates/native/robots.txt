@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://flowoodtech.com/index.html
+Sitemap: https://flowoodtech.com/product.html

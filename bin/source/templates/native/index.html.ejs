@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= projectName %></title>
+    <meta name="description" content="The ultimate solution for your loan needs." />
+    <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./styles/commom.css">
+    <script>
+        // Screen adaptation 
+        (function (win, doc) {
+            if (!win.addEventListener) return;
+            var html = document.documentElement;
+            function setFont() {
+                var html = document.documentElement;
+                var k = html.clientWidth>760?1920:750;
+                html.style.fontSize = html.clientWidth / k + "px"
+            }
+            setFont();
+            setTimeout(function () {
+                setFont();
+            }, 300);
+            doc.addEventListener('DOMContentLoaded', setFont, false);
+            win.addEventListener('resize', setFont, false);
+            win.addEventListener('load', setFont, false);
+        })(window, document);
+    </script>
+    <style>
+        .part1 { height: calc(100vh - 137rem); background: linear-gradient(to right, #23D78D, #05A068);}
+        /* Mobile device style */
+        @media only screen and (max-width: 768px) {
+      
+        }
+   </style>
+</head>
+
+<body>
+    <div class="header-wrapper">
+        <div class="container">
+            <div class="logo">
+                <img src="./images/logo.webp" alt="logo"><%= projectName %> 
+            </div>
+            <div class="list">
+                <div class="item active"><a href="">Home</a></div>
+                <div class="item"><a href="#">Product</a></div>
+                <div class="item"><a href="#">About us</a></div>
+                <div class="item"><a href="#">Agreement</a></div>
+            </div>
+        </div>
+    </div>
+    <div class="part part1">
+        <div class="container"></div>
+    </div>
+    <div class="footer-wrapper">
+       <div class="container">
+            <a class="link" href="./agreement.html?tag=term">Terms of use</a>
+            <a class="link" href="./agreement.html?tag=privacy">Privacy Policy</a>
+            <a class="link" href="./agreement.html?tag=contract">Loan Contract</a>
+       </div>
+    </div>
+    <div class="copyright">
+        © 2024 Flowood Lending Limited. ALL RIGHTS RESERVED.
+    </div>
+</body>
+
+</html>

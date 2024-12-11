@@ -1,0 +1,12 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://pesogo.ph/#/home
+Sitemap: https://pesogo.ph/#/securityState/antiFaud
+Sitemap: https://pesogo.ph/#/securityState/personalInformation
+Sitemap: https://pesogo.ph/#/securityState/deleteAccount
+Sitemap: https://pesogo.ph/#/loanProcess
+Sitemap: https://pesogo.ph/#/blog
+Sitemap: https://pesogo.ph/#/aboutUs/operationData
+Sitemap: https://pesogo.ph/#/aboutUs/executiveTeam
+Sitemap: https://pesogo.ph/#/aboutUs/faq
