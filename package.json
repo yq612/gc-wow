@@ -1,7 +1,7 @@
 {
-  "name": "wow",
+  "name": "gc-wow",
   "version": "1.0.0",
-  "description": "构建属于自己的脚手架工具",
+  "description": "官网脚手架工具",
   "main": "index.js",
   "bin": {
     "wow": "./bin/index.js"
@@ -11,8 +11,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "rm -rf ./app-test & node ./bin/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yq612/gc-wow.git"
+  },
   "keywords": [
-    "脚手架"
+    "脚手架",
+    "cli",
+    "web",
+    "nodejs"
   ],
   "author": "hu-snail",
   "license": "ISC",
