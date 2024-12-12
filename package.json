@@ -33,5 +33,9 @@
     "mime-types": "^2.1.35",
     "mkdir": "^0.0.2",
     "mkdirp": "^1.0.4"
-  }
+  },
+  "files": [
+    "bin/",
+    "source/"
+  ]
 }
