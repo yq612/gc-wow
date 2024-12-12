@@ -211,7 +211,7 @@ export function copyFontFolder(fontFamily, rootPath) {
 
     // 遍历源文件夹中的所有文件并复制到目标路径
     fs.readdirSync(fontSourcePath).forEach((file) => {
-      const sourceFile = path.resolve(__dirname,fontSourcePath, file);
+      const sourceFile = path.join(fontSourcePath, file);
       const destinationFile = path.join(fontsDir, file); // 直接复制到 fonts 文件夹
 
       if (fs.lstatSync(sourceFile).isFile()) {
