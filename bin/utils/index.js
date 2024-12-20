@@ -1,224 +1,76 @@
-/**
- * @description 创建模板相关工具函数
- */
 import ejs from "ejs";
 import fs from "fs";
 import path from "path";
-import { execa } from "execa";
 import { fileURLToPath } from "url";
 import mime from "mime-types";
 
-const BASE_TEMPLATE_PATH = '../../source/templates';
-const BASE_FONT_PATH = '../../source/fonts';
 const __dirname = fileURLToPath(import.meta.url);
+const PLUGIN_TEMPLATE_PATH = path.resolve(__dirname, '../../source/templates');
+const PLUGIN_FONT_PATH = path.resolve(__dirname, '../../source/fonts');
 
-/**
- * @description 解析ejs模板
- * @param {Object} config
- * @param {String} templateName
- * @param {String} templatePath
- * @returns code
- */
+/** 解析 ejs 模板 */
 export function getCode(config, templateName, templatePath) {
-  const template = fs.readFileSync(
-    path.resolve(__dirname, `${BASE_TEMPLATE_PATH}/${templateName}/${templatePath}`)
-  );
-  const code = ejs.render(template.toString(), {
-    ...config,
-  });
-  return code;
+  const template = fs.readFileSync(path.resolve(PLUGIN_TEMPLATE_PATH, templateName, templatePath));
+  return ejs.render(template.toString(), { ...config });
 }
 
-/**
- * @description 创建文件或者文件夹
- * @example 创建vue文件 new fileName -vue --file
- * @param {String} fileName 文件名称
- * @param {Object} option 指令项
- */
-export function createFile(fileName, option) {
-  const options = Object.keys(option);
-  if (!options.length && fileName) fs.mkdirSync(`./${fileName}`);
-  options.map((type) => {
-    if (type !== "file" && type !== "folder") newFile(fileName, option, type);
-  });
-}
-
-/**
- * @description 安装插件
- * @param {String} pluginName 插件名称
- * @param {Object} option 指令项
- */
-export function installPlugin(pluginName, option) {
-  const options = Object.keys(option);
-  const isYarn = option.Yarn ? "add" : "i";
-  const isSaveDev = option.saveDev ? "-D" : "-S";
-  if (pluginName && !options.length) {
-    execa(`npm i ${pluginName}`, {
-      cwd: "./",
-      stdio: [2, 2, 2],
-      shell: true,
-    });
-  }
-  options.map((type) => {
-    if (type === "saveDev" || type === "save") false;
-    else {
-      const tool = type.toLowerCase();
-      const installStr = `${tool} ${isYarn} ${pluginName} ${isSaveDev}`;
-      execa(installStr, {
-        cwd: "./",
-        stdio: [2, 2, 2],
-        shell: true,
-      });
-    }
-  });
-}
-
-/**
- * @description 复制文件，比如图片/图标静态资源
- * @param {*} rootPath 根目录
- * @param {*} template 模板
- * @param {*} item 静态模板文件
- */
+/** 复制文件，比如图片/图标静态资源 */
 export function copyFile(rootPath, template, item) {
-  const fromFileName = path.resolve(
-    __dirname,
-    `${BASE_TEMPLATE_PATH}/${template}/${item}`
-  );
-  const toFileName = `${rootPath}/${item}`;
-
-  // 根据文件扩展名获取 MIME 类型
+  const fromFileName = path.resolve(PLUGIN_TEMPLATE_PATH, template, item);
+  const toFileName = path.join(rootPath, item);
   const mimeType = mime.lookup(fromFileName);
-
-  // 判断是否为文本类型
   const isText = mimeType && mimeType.startsWith("text");
 
   const rs = fs.createReadStream(fromFileName, {
-    autoClose: true,
+    encoding: isText ? "utf-8" : null,
     highWaterMark: 64 * 1024 * 1024,
-    flags: "r",
-    encoding: isText ? "utf-8" : null, // 文本文件设置编码，二进制文件保持为 null
   });
 
   const ws = fs.createWriteStream(toFileName, {
-    flags: "w", // 使用写入模式，避免追加
-    highWaterMark: 16 * 1024 * 1024,
-    autoClose: true,
     encoding: isText ? "utf-8" : null,
+    highWaterMark: 16 * 1024 * 1024,
   });
 
-  rs.on("data", (chunk) => {
-    const wsFlag = ws.write(chunk);
-    if (!wsFlag) {
-      rs.pause();
-    }
-  });
-
-  ws.on("drain", () => {
-    rs.resume();
-  });
-
-  rs.on("end", () => {
-    ws.end();
-  });
-
-  rs.on("error", (err) => {
-    console.error(`Error reading file ${fromFileName}:`, err);
-  });
-
-  ws.on("error", (err) => {
-    console.error(`Error writing file ${toFileName}:`, err);
-  });
+  rs.pipe(ws);
 }
 
-function newFile(fileName, option, type) {
-  const isFolder = option.folder ? true : false;
-  const fileType = type.toLowerCase();
-
-  if (isFolder) fs.mkdirSync(`./${fileName}`);
-  else {
-    fs.writeFileSync(`./${fileName}.${fileType}`, "vue");
-  }
-}
-
-export function hasTemplate(template) {
-  return ['vue', 'vue-ts', 'react', 'react-ts'].includes(template)
-}
-
-export function getSupportTs(template) {
-  return ['vue-ts', 'react-ts'].includes(template)
-}
-
+/** 获取模板内的文件和目录 */
 export function getFiles(template, dir = '') {
-  const templatePath = `./bin/source/templates/${template}/`
-  const rootFiles = fs.readdirSync(templatePath, 'utf-8')
+  const templatePath = path.resolve(PLUGIN_TEMPLATE_PATH, template);
+  const rootFiles = fs.readdirSync(templatePath);
 
-  let files = [] // 当前函数内独立存储文件
-  let dirs = []  // 当前函数内独立存储目录
+  let files = [], dirs = [];
 
   rootFiles.forEach(item => {
-    const stat = fs.lstatSync(templatePath + item)
-    const isDir = stat.isDirectory()
+    const itemPath = path.join(templatePath, item);
+    const isDir = fs.lstatSync(itemPath).isDirectory();
+
     if (isDir) {
-      const itemDir = `${dir}${item}/` // 拼接子目录路径
-      dirs.push(itemDir)              // 记录当前目录
-      const nestedResult = getFiles(`${template}/${item}`, itemDir) // 递归获取子目录内容
-      dirs = dirs.concat(nestedResult.dirs) // 合并子目录的结果
-      files = files.concat(nestedResult.files) // 合并子文件的结果
+      const itemDir = path.join(dir, item);
+      dirs.push(itemDir);
+      const nestedResult = getFiles(path.join(template, item), itemDir);
+      dirs = dirs.concat(nestedResult.dirs);
+      files = files.concat(nestedResult.files);
     } else {
-      files.push(`${dir}${item}`) // 添加文件
+      files.push(path.join(dir, item));
     }
-  })
+  });
 
-  return { files, dirs } // 返回当前级别的结果
-}
-// 定义 getAvailableFontPaths 函数
-function getAvailableFontPaths(fontsSourcePath) {
-  const availableFontPaths = {};
-  try {
-    if (!fs.existsSync(fontsSourcePath)) {
-      throw new Error(`字体源路径 "${fontsSourcePath}" 不存在`);
-    }
-
-    const fontFolders = fs.readdirSync(fontsSourcePath).filter((item) => {
-      const fullPath = path.resolve(__dirname,fontsSourcePath, item);
-      return fs.lstatSync(fullPath).isDirectory();
-    });
-
-    fontFolders.forEach((folder) => {
-      availableFontPaths[folder] = path.resolve(__dirname,fontsSourcePath, folder);
-    });
-
-    return availableFontPaths;
-  } catch (error) {
-    console.error("❌ 动态获取字体路径时发生错误：", error.message);
-    return availableFontPaths;
-  }
+  return { files, dirs };
 }
 
+/** 复制字体文件 */
 export function copyFontFolder(fontFamily, rootPath) {
-  try {
-    // 动态获取字体路径
-    const fontPath = path.resolve(__dirname, BASE_FONT_PATH)
-    const availableFontPaths = getAvailableFontPaths(fontPath);
+  const fontSourcePath = path.join(PLUGIN_FONT_PATH, fontFamily);
+  const fontsDir = path.join(rootPath, "fonts");
 
-    // 检查用户选择的字体是否存在
-    const fontSourcePath = availableFontPaths[fontFamily];
-    if (!fontSourcePath) return
+  if (!fs.existsSync(fontsDir)) fs.mkdirSync(fontsDir);
 
-    // 目标 fonts 文件夹路径
-    const fontsDir = path.join(rootPath, "fonts");
-    if (!fs.existsSync(fontsDir)) fs.mkdirSync(fontsDir)
-
-    // 遍历源文件夹中的所有文件并复制到目标路径
-    fs.readdirSync(fontSourcePath).forEach((file) => {
-      const sourceFile = path.join(fontSourcePath, file);
-      const destinationFile = path.join(fontsDir, file); // 直接复制到 fonts 文件夹
-
-      if (fs.lstatSync(sourceFile).isFile()) {
-        fs.copyFileSync(sourceFile, destinationFile);
-      }
-    });
-  } catch (error) {
-    console.error("❌ 复制字体文件夹时发生错误：", error.message);
-  }
+  fs.readdirSync(fontSourcePath).forEach((file) => {
+    const sourceFile = path.join(fontSourcePath, file);
+    const destinationFile = path.join(fontsDir, file);
+    if (fs.lstatSync(sourceFile).isFile()) {
+      fs.copyFileSync(sourceFile, destinationFile);
+    }
+  });
 }
