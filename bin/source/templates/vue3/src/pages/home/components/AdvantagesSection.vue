@@ -1,46 +1,17 @@
-<script setup lang="ts">
-import Icon1 from "~/assets/home/icon1.webp";
-import Icon2 from "~/assets/home/icon2.webp";
-import Icon3 from "~/assets/home/icon3.webp";
-
-const list = [
-  {
-    name: "High-Quality Services",
-    des:
-      "With years of experience in the financial industry, we recognize the challenges many face when accessing quick cash. Whether unexpected expenses, medical emergencies, or simply bridging the gap until the next paycheck, we believe everyone deserves access to fair and transparent lending options.",
-    src: Icon1,
-  },
-  {
-    name: "Quick and Simple",
-    des:
-      "What sets PesoGo apart is our commitment to customer satisfaction and convenience. We leverage cutting-edge technology to streamline the loan application process, ensuring fast approvals and hassle-free transactions. Our platform is designed to be user-friendly, allowing customers to apply for loans anytime, anywhere, with just a few clicks.",
-    src: Icon2,
-  },
-  {
-    name: "Security and Reliability",
-    des:
-      "Transparency and trust are at the core of everything we do. We believe in providing clear and concise information, so our customers can make informed decisions about their finances. There are no hidden fees or surprises – just straightforward terms and conditions that prioritize your financial well-being.",
-    src: Icon3,
-  },
-];
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="part">
-    <div class="section-title" data-aos="fade-up">Product advantages</div>
-    <div class="card-wrapper">
-      <div
-        class="card"
-        v-for="(item, i) in list"
-        :key="i"
-        data-aos="fade-up"
-        data-aos-delay="200"
-      >
-        <img :src="item.src" alt="icon" class="icon" />
-        <div class="content">
-          <div class="name">{{ item.name }}</div>
-          <div class="des">{{ item.des }}</div>
-        </div>
+    <div class="card-container" data-aos="fade">
+      <div class="title" data-aos="fade-up">
+        Fast, Smart, and Secure Loans at Your Fingertips.
+      </div>
+      <div class="des" data-aos="fade-up" data-aos-delay="200">
+        Demo is an innovative financial application launched by Doku Technology
+        Limited, designed to provide users with convenient and efficient loan services.
+        Whether you're an individual in urgent need of funds or a small business looking
+        to expand, Demo offers fast loan application and approval processes, helping
+        you meet your financial needs with ease.
       </div>
     </div>
   </div>
@@ -49,43 +20,43 @@ const list = [
 <style lang="scss" scoped>
 .part {
   position: relative;
-  padding-bottom: 100px;
-  background: var(--color-light);
-  padding-top: 65px;
-  .section-title {
-    width: 820px;
-    margin: 45px auto 120px;
-  }
-  .card-wrapper {
-    margin: 0 300px;
-    .card {
-      padding: 0 30px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 80px;
-      &:nth-child(2) {
-        flex-direction: row-reverse;
-      }
-      .icon {
-        width: 260px;
-        height: auto;
-        margin: 0 140px;
-      }
-      .content {
-        width: 530px;
-        .name {
-          font-weight: bold;
-          font-size: 24px;
-          color: #333333;
-          margin-bottom: 20px;
-        }
-        .des {
-          font-weight: 400;
-          font-size: 16px;
-          color: #969faf;
-        }
-      }
+  background: white;
+  padding: 160px 0 120px;
+  .card-container {
+    width: 1748px;
+    height: 620px;
+    background-image: linear-gradient(
+      to top,
+      #3f51b1 0%,
+      #5a55ae 13%,
+      #7b5fac 25%,
+      #8f6aae 38%,
+      #a86aa4 50%,
+      #cc6b8e 62%,
+      #f18271 75%,
+      #f3a469 87%,
+      #f7c978 100%
+    );
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+    color: #ffffff;
+    position: relative;
+    border-radius: 20px;
+    .title {
+      width: 1019px;
+      font-weight: bold;
+      font-size: 64px;
+      line-height: 75px;
+      margin: 125px auto 0;
+    }
+    .des {
+      width: 790px;
+      font-size: 18px;
+      line-height: 27px;
+      text-align: center;
+      margin: 86px auto 70px;
+      font-weight: lighter;
     }
   }
 }
@@ -94,34 +65,31 @@ const list = [
 /* 移动设备样式 */
 @media only screen and (max-width: 768px) {
   .part {
-    padding: 0 40px;
-    padding-bottom: 100px;
-    .section-title {
-      margin-bottom: 20px;
-    }
-    .card-wrapper {
-      display: block;
+    padding-top: 0;
+    height: auto;
+    .card-container {
+      width: 100%;
+      border-radius: 0;
+      background-size: cover;
+      background-position-x: -70px;
       margin: 0;
-      .card {
-        padding: 0;
-        height: auto;
-        margin-bottom: 40px;
-        &:nth-child(2) {
-          flex-direction: row;
-        }
-        .icon {
-          display: none;
-        }
-        .content {
-          width: 700px;
-          .name {
-            font-size: 33px;
-            margin-bottom: 20px;
-          }
-          .des {
-            font-size: 23px;
-          }
-        }
+      padding: 40px;
+      .title {
+        font-size: 40px;
+        width: 95%;
+        text-align: left;
+        margin: 0;
+        margin-top: 70px;
+        line-height: 1.4;
+        margin-bottom: 50px;
+      }
+      .des {
+        font-size: 26px;
+        line-height: 1.3;
+        text-align: left;
+        width: 95%;
+        margin: 0;
+        margin-bottom: 90px;
       }
     }
   }

@@ -7,11 +7,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BlogPanel: typeof import('./../src/components/BlogPanel.vue')['default']
     BtnDownload: typeof import('./../src/components/BtnDownload.vue')['default']
     BtnLeanMore: typeof import('./../src/components/BtnLeanMore.vue')['default']
+    BtnLearnMore: typeof import('./../src/components/BtnLearnMore.vue')['default']
+    CollapseItem: typeof import('./../src/components/CollapseItem.vue')['default']
+    DownloadSection: typeof import('./../src/components/DownloadSection.vue')['default']
+    HoverCode: typeof import('./../src/components/HoverCode.vue')['default']
     PartnerSection: typeof import('./../src/components/PartnerSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SaySection: typeof import('./../src/components/SaySection.vue')['default']
     SecuritySection: typeof import('./../src/components/SecuritySection.vue')['default']
     VerticalTab: typeof import('./../src/components/VerticalTab.vue')['default']
   }

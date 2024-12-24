@@ -1,12 +1,11 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://pesogo.ph/#/home
-Sitemap: https://pesogo.ph/#/securityState/antiFaud
-Sitemap: https://pesogo.ph/#/securityState/personalInformation
-Sitemap: https://pesogo.ph/#/securityState/deleteAccount
-Sitemap: https://pesogo.ph/#/loanProcess
-Sitemap: https://pesogo.ph/#/blog
-Sitemap: https://pesogo.ph/#/aboutUs/operationData
-Sitemap: https://pesogo.ph/#/aboutUs/executiveTeam
-Sitemap: https://pesogo.ph/#/aboutUs/faq
+Sitemap: http://Demo.com/#/home
+Sitemap: http://Demo.com/#/company
+Sitemap: http://Demo.com/#/product
+Sitemap: http://Demo.com/#/help/faq
+Sitemap: http://Demo.com/#/help/condition
+Sitemap: http://Demo.com/#/help/anti
+Sitemap: http://Demo.com/#/post
+Sitemap: http://Demo.com/#/user/account

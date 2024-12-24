@@ -10,11 +10,12 @@ import { createVue3Html } from "./build/vue3.js"
 
 let config = await command();
 
-const { framework, fontFamily, projectName } = config;
+
+const { framework, fontFamily, projectName, aos } = config;
 const rootPatch = `${path.resolve("./")}/${projectName}`
 
 if (framework === 'vue3') {
-    createVue3Html({ fontFamily, projectName }, rootPatch)
+    createVue3Html({ fontFamily, aos, projectName }, rootPatch)
 } else {
     createNativeHtml({ fontFamily, projectName }, rootPatch)
 }

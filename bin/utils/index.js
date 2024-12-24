@@ -74,3 +74,9 @@ export function copyFontFolder(fontFamily, rootPath) {
     }
   });
 }
+
+/** 获取当前字体目录 */
+export function getFonts() {
+  return fs.readdirSync(PLUGIN_FONT_PATH)
+  .filter(file => fs.statSync(path.join(PLUGIN_FONT_PATH, file)).isDirectory()); 
+}

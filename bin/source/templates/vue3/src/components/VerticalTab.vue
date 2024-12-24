@@ -24,19 +24,17 @@ defineEmits(["change"]);
 .tab-wrapper {
   font-size: 22px;
   line-height: 20px;
-  text-align: center;
-  display: flex;
-  gap: 20px;
   position: relative;
   z-index: 99;
   .tab {
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 20px;
     cursor: pointer;
     transition: all 0.2s ease;
-    flex: 1;
-    padding: 20px 0;
-    background: #f8faff;
-    border-radius: 32px;
-    border: 1px solid rgba(0, 0, 0, 0);
+    padding: 12px 30px;
+    background: #f5f5f5;
+    border-radius: 10px;
     &.active,
     &:hover {
       background-color: var(--color-primary);

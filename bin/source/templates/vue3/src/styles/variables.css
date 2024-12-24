@@ -1,7 +1,7 @@
 :root {
   /* 颜色变量 */
-  --color-primary: #2c44fe; /* 主色 */
-  --color-secondary: #6c757d; /* 次级色 */
+  --color-primary:#6e45e2; /* 主色 */
+  --color-secondary:#88d3ce; /* 次级色 */
   --color-success: #28a745; /* 成功提示色 */
   --color-danger: #dc3545; /* 错误提示色 */
   --color-warning: #ffc107; /* 警告色 */

@@ -5,6 +5,8 @@
 import inquirer from "inquirer";
 import { InvalidArgumentError } from "commander";
 import chalk from "chalk";
+import { getFonts } from "../../utils/index.js"
+
 export default (program, call) => {
   program
     .command("create")
@@ -23,13 +25,27 @@ export default (program, call) => {
         },
       ]);
 
+      // vue 官网可选动画
+      let aos = false;
+      if (['vue3'].includes(framework)) {
+        const result = await inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'aos',
+            message: '开启AOS动画选项',
+            default: true,  // 默认选项，如果是 true，默认是 "Yes"
+          },
+        ]);
+        aos = result?.aos
+      }
+
       // 第二步：选择字体
       const { fontFamily } = await inquirer.prompt([
         {
           type: "list",
           name: "fontFamily",
           message: "请选择字体：",
-          choices: ["OpenSans", "Roboto"],
+          choices: getFonts(),
         },
       ]);
 
@@ -42,7 +58,7 @@ export default (program, call) => {
           validate: validateAppName,
         },
       ]);
-      call && call({ framework, projectName, fontFamily});
+      call && call({ framework, projectName, aos, fontFamily });
     });
 };
 

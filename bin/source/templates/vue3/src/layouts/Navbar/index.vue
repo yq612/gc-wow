@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { PageConstant } from "~/constant/pageConstant";
 import MenuList from "./components/MenuList.vue";
-import Logo from "~/assets/layout/logo.webp";
 import appStore from "~/store";
 
 defineOptions({
   name: "HeaderNav",
 });
-const { togglePositionState } = appStore.pageConfig;
 const atTop = computed(() => {
   const { config } = appStore.pageConfig;
   return config.atTheTop;
@@ -18,22 +15,12 @@ const matchWhiteBg = () => {
   const routerName = route.name as string;
   return whiteBgList.includes(routerName);
 };
-function debounce(func: Function, wait: number) {
-  let timeout: any;
-  return function () {
-    clearTimeout(timeout);
-    timeout = setTimeout(func, wait);
-  };
+
+const router = useRouter();
+function goto(path?: string) {
+  if (!path) return;
+  router.push(path);
 }
-onMounted(() => {
-  window.addEventListener(
-    "scroll",
-    debounce(function () {
-      const result = (document.documentElement?.scrollTop || 0) > 0;
-      togglePositionState(!result);
-    }, 100)
-  );
-});
 </script>
 
 <template>
@@ -43,11 +30,15 @@ onMounted(() => {
     :class="[!atTop && 'active', matchWhiteBg() && 'whiteBg']"
   >
     <div class="inner-container">
-      <div class="logo-wrapper">
-        <img :src="Logo" alt="Logo" class="logo" />
-        {{ PageConstant.APP_NAME }}
-      </div>
+      <div class="logo-wrapper" @click="goto('/home')">Demo</div>
       <MenuList />
+      <a
+        class="operate"
+        href="https://www.google.com/"
+        target="_blank"
+      >
+        <span class="join">Join Us</span>
+      </a>
     </div>
   </div>
 </template>
@@ -60,26 +51,14 @@ onMounted(() => {
   top: 0;
   z-index: 9999;
   transition: all 0.25s ease;
-  background: #c3e0fd;
+  background: var(--color-primary);
 
   &.whiteBg {
     background-color: white;
     box-shadow: 0px 4px 9px 0px rgba(192, 201, 213, 0.15);
-    .logo-wrapper {
-      color: var(--color-primary);
-    }
   }
-  &.active {
-    background: white;
-    .logo-wrapper {
-      /* background: white; */
-      color: #333333;
-    }
-  }
-
   .inner-container {
-    width: 1710px;
-    height: 64px;
+    width: 1200px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,14 +67,24 @@ onMounted(() => {
 
   .logo-wrapper {
     font-size: 20px;
-    color: #333333;
-    padding: 10px 15px;
+    color: white;
     border-radius: 15px;
     transition: all 0.2s ease;
-    .logo {
-      height: 38px;
-      margin-right: 10px;
-      display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .operate {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    .join {
+      font-size: 16px;
+      background: rgba(35, 35, 35, 1);
+      color: rgba(255, 255, 255, 0.679);
+      padding: 4px 22px;
+      border-radius: 5px;
+      text-transform: capitalize;
     }
   }
 }
@@ -105,18 +94,20 @@ onMounted(() => {
 @media only screen and (max-width: 768px) {
   .header-nav {
     position: relative;
-    background: white;
     .inner-container {
-      height: 80px;
       width: 100%;
     }
     .logo-wrapper {
-      padding: 20px 30px 0 40px;
+      padding: 20px 30px;
       margin-left: 0;
-      color: var(--color-primary);
       font-size: 32px;
-      .logo {
-        height: 60px;
+    }
+    .operate {
+      position: absolute;
+      right: 30px;
+      .join {
+        font-size: 20px;
+        padding: 6px 20px;
       }
     }
   }

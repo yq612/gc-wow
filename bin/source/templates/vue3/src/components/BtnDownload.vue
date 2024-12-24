@@ -1,24 +1,20 @@
 <script setup lang="ts">
 import IconGoogleDownload from "~/assets/common/btn-google.webp";
+import IconGreenGoogleDownload from "~/assets/common/btn-google-green.webp";
+import IconDarkGoogleDownload from "~/assets/common/btn-google-dark.webp";
 import Code from "~/assets/common/code.webp";
 
-withDefaults(
-  defineProps<{ showCode?: boolean; googleImgType?: string }>(),
-  {
-    type: "google",
-    showCode: true,
-  }
-);
-
+withDefaults(defineProps<{ showCode?: boolean; bgType?: string }>(), {
+  bgType: "white", // white green
+  showCode: false,
+});
 </script>
 
 <template>
-  <a
-    class="btn-download"
-    href="https://play.google.com/store/apps/details?id=com.peso.go.pro.loan&hl=en-gb&gl=ph"
-    target="_blank"
-  >
-    <img :src="IconGoogleDownload" alt="download" />
+  <a class="btn-download" href="https://www.google.com/" target="_blank" title="download">
+    <img :src="IconGoogleDownload" alt="download" v-if="bgType === 'white'" />
+    <img :src="IconGreenGoogleDownload" alt="download" v-if="bgType === 'green'" />
+    <img :src="IconDarkGoogleDownload" alt="download" v-if="bgType === 'dark'" />
     <div class="code" v-if="showCode">
       <img :src="Code" alt="Code" />
     </div>
@@ -28,8 +24,8 @@ withDefaults(
 <style lang="scss" scoped>
 .btn-download {
   cursor: pointer;
-  width: 146px;
-  height: 40px;
+  width: 244px;
+  height: 82px;
   display: inline-block;
   position: relative;
   img {
