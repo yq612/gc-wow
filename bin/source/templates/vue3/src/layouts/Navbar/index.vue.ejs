@@ -30,7 +30,7 @@ function goto(path?: string) {
     :class="[!atTop && 'active', matchWhiteBg() && 'whiteBg']"
   >
     <div class="inner-container">
-      <div class="logo-wrapper" @click="goto('/home')">Demo</div>
+      <div class="logo-wrapper" @click="goto('/home')"><%= projectName %></div>
       <MenuList />
       <a
         class="operate"
