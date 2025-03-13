@@ -1,19 +1,25 @@
 @import "variables.css";
 
 @font-face {
+  font-display: swap;
   font-family: "<%= fontFamily %>";
-  src: url("/fonts/<%= fontFamily %>-Light.ttf");
+  src: url("/fonts/<%= fontFamily %>-Light.woff2") format('woff2'),
+       url("/fonts/<%= fontFamily %>-Light.woff") format('woff');
   font-weight: 100;
 }
 @font-face {
+  font-display: swap;
   font-family: "<%= fontFamily %>";
-  src: url("/fonts/<%= fontFamily %>-Regular.ttf");
+  src: url("/fonts/<%= fontFamily %>-Regular.woff2") format('woff2'),
+       url("/fonts/<%= fontFamily %>-Regular.woff") format('woff');
   font-weight: 400;
 }
 
 @font-face {
+  font-display: swap;
   font-family: "<%= fontFamily %>";
-  src: url("/fonts/<%= fontFamily %>-Bold.ttf");
+  src: url("/fonts/<%= fontFamily %>-Bold.woff2") format('woff2'),
+       url("/fonts/<%= fontFamily %>-Bold.woff") format('woff');
   font-weight: 700;
 }
 body,

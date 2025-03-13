@@ -14,5 +14,11 @@ wow create
 ```
 按照提示一步一步创建即可
 
+## 字体格式
+本工具使用 WOFF 和 WOFF2 格式的字体文件。请确保在 `bin/source/fonts/[字体名称]` 目录下提供以下格式的字体文件：
+- [字体名称]-Light.woff2 和 [字体名称]-Light.woff
+- [字体名称]-Regular.woff2 和 [字体名称]-Regular.woff
+- [字体名称]-Bold.woff2 和 [字体名称]-Bold.woff
+
 <img src='README.assets/capture1.png'/>
 
