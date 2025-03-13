@@ -20,6 +20,7 @@ export default (program, call) => {
           message: "请选择官网类型：",
           choices: [
             { name: "Vue3 官网", value: "vue3" },
+            { name: "Vue3 官网（unocss）", value: "vue3-unocss" },
             { name: "纯原生官网", value: "native" },
           ],
         },
@@ -27,7 +28,7 @@ export default (program, call) => {
 
       // vue 官网可选动画
       let aos = false;
-      if (['vue3'].includes(framework)) {
+      if (['vue3', 'vue3-unocss'].includes(framework)) {
         const result = await inquirer.prompt([
           {
             type: 'confirm',

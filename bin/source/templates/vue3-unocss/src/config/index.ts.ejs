@@ -1,0 +1,30 @@
+/**
+ * @name 配置文件
+ */
+
+/** 应用名称 */
+export const APP_NAME = import.meta.env.VITE_APP_NAME || '<%= projectName %>'
+
+/** 展示下载 */
+export const SHOW_DOWNLOAD = false
+
+export interface MenuItem {
+  name: string
+  path: string
+  selector?: string
+}
+/** 菜单列表 */
+export const menuList: MenuItem[] = [
+  {
+    name: 'Home',
+    path: '/',
+  },
+  {
+    name: 'Services',
+    path: '/services',
+  },
+  {
+    name: 'Company',
+    path: '/company',
+  },
+]

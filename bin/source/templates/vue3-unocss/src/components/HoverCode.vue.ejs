@@ -1,0 +1,49 @@
+<script setup lang="ts">
+import Code from '@/assets/images/common/code.webp'
+import { SHOW_DOWNLOAD } from '@/config/index'
+
+defineProps<{
+  text?: string // 按钮文本
+  qrCode?: string // 二维码图片路径
+  theme?: 'dark' | 'dark' // 主题
+}>()
+</script>
+
+<template>
+  <div v-if="SHOW_DOWNLOAD" class="group relative mx-auto h-100 w-280 cursor-pointer">
+    <!-- 悬浮时显示的二维码 -->
+    <div
+      :class="theme === 'dark' ? 'bg-black' : 'bg-white'"
+      class="invisible absolute bottom-[110%] w-240 flex transform items-center justify-center rounded-10px opacity-0 transition-all duration-300 ease-in-out group-hover:visible -right-30 group-hover:opacity-100"
+    >
+      <img :src="qrCode || Code" alt="QR Code" class="block h-100% w-100%" width="240" height="240">
+    </div>
+
+    <!-- 主按钮 -->
+    <div
+      :class="theme === 'dark' ? 'bg-black' : 'bg-white'"
+      class="h-full w-full flex items-center justify-center gap-25px rounded-10px shadow-md"
+    >
+      <span :class="theme === 'dark' ? 'text-white' : 'text-[#333333]'" class="w-121 whitespace-pre-line text-24 font-bold lh-28">{{ text || 'Download \n <%= projectName %>' }}</span>
+      <div
+        :class="theme === 'dark' ? 'bg-white' : 'bg-black'"
+        class="h-78 w-78 flex items-center justify-center overflow-hidden border-rd-5"
+      >
+        <img :src="qrCode || Code" alt="icon" class="block h-88% w-88%" width="78" height="78">
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+@keyframes float {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>
