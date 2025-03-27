@@ -9,7 +9,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "rm -rf ./app-test & node ./bin/index.js"
+    "start": "rm -rf ./app-test & node ./bin/index.js",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -37,5 +38,14 @@
   "files": [
     "bin/",
     "source/"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  }
 }
