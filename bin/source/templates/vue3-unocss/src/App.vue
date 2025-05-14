@@ -3,9 +3,9 @@
     <HeaderNav />
     <router-view v-slot="{ Component, route }">
       <transition name="scale" mode="out-in">
-        <keep-alive>
+        <!-- <keep-alive> -->
           <component :is="Component" :key="route.name" />
-        </keep-alive>
+        <!-- </keep-alive> -->
       </transition>
     </router-view>
     <Footer />

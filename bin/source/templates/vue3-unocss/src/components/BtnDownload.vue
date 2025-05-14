@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import downloadIcon from '@/assets/images/common/btn-google.png'
+import downloadIcon from '@/assets/images/common/btn-google.webp'
 import vw from '@/utils/inline-px-to-vw'
-import { SHOW_DOWNLOAD } from '@/config/index'
+import { SHOW_DOWNLOAD, DOWNLOAD_URL } from '@/config/index'
 
 interface Props {
   height?: number
@@ -12,7 +12,7 @@ interface Props {
 withDefaults(defineProps<Props>(), {
   height: 35,
   text: '',
-  href: 'https://play.google.com/store/apps/details?id=com.ultra.cash.naira.loan.quicky&hl=en-gb&gl=ng',
+  href: DOWNLOAD_URL,
 })
 </script>
 
